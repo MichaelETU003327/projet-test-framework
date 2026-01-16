@@ -8,12 +8,25 @@ import com.itu.gest_emp.model.Employe;
 import servlet.ModelView;
 import servlet.annotations.Controller;
 import servlet.annotations.RequestParam;
+import servlet.annotations.Upload;
 import servlet.annotations.mapping.GetMapping;
 import servlet.annotations.mapping.PostMapping;
 import servlet.annotations.mapping.RequestMapping;
 
 @Controller
 public class HelloController {
+    @GetMapping("/upload")
+    public ModelView upload() {
+        ModelView modelView = new ModelView();
+        modelView.setView("pages/upload.jsp");
+        return modelView;
+    }
+
+    @PostMapping("/upload")
+    @Upload
+    public String handleUpload() {
+        return "Upload réussi !";
+    }
 
     @GetMapping("/hello")
     public String hello() {
