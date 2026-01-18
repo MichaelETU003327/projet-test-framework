@@ -1,5 +1,6 @@
 package com.itu.gest_emp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import com.itu.gest_emp.model.Departement;
@@ -11,9 +12,39 @@ import servlet.annotations.RequestParam;
 import servlet.annotations.mapping.GetMapping;
 import servlet.annotations.mapping.PostMapping;
 import servlet.annotations.mapping.RequestMapping;
+import servlet.utils.Upload;
 
 @Controller
 public class HelloController {
+    @GetMapping("/upload")
+    public ModelView upload() {
+        ModelView modelView = new ModelView();
+        modelView.setView("pages/upload.jsp");
+        return modelView;
+    }
+
+    @PostMapping("/upload")
+    public String handleUpload(Map<String, List<Upload>> uploads) {
+        StringBuilder result = new StringBuilder("Upload réussi !\n\n");
+
+        for (Map.Entry<String, List<Upload>> entry : uploads.entrySet()) {
+            result.append("Champ: ").append(entry.getKey()).append("\n");
+
+            for (Upload upload : entry.getValue()) {
+                try {
+                    // Sauvegarder le fichier
+                    upload.save();
+
+                    result.append("  - Fichier: ").append(upload.getFileName())
+                            .append(" (").append(upload.getSize()).append(" octets)\n");
+                } catch (Exception e) {
+                    result.append("  - Erreur: ").append(e.getMessage()).append("\n");
+                }
+            }
+        }
+
+        return result.toString();
+    }
 
     @GetMapping("/hello")
     public String hello() {

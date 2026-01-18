@@ -1,0 +1,19 @@
+<!-- upload.jsp -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+</head>
+
+<body>
+    <form action="upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="document" multiple />
+        <input type="file" name="fichier" multiple />
+        <input type="submit" value="Upload" />
+    </form>
+</body>
+
+</html>
