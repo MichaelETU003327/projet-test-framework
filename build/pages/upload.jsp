@@ -1,3 +1,4 @@
+<!-- upload.jsp -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +10,10 @@
 
 <body>
     <form action="upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="fileUpload" multiple />
+        <input type="file" name="document" multiple />
+        <input type="file" name="fichier" multiple />
         <input type="submit" value="Upload" />
     </form>
-
 </body>
 
 </html>
