@@ -23,7 +23,7 @@ public class SecurityTestController {
     @GetMapping("/security/home")
     public ModelView home() {
         ModelView mv = new ModelView("/pages/security/home.jsp");
-        mv.addObject("message", "Page publique - accessible à tous");
+        mv.addAttribute("message", "Page publique - accessible à tous");
         return mv;
     }
 
@@ -41,13 +41,13 @@ public class SecurityTestController {
     @PostMapping("/security/login")
     public ModelView doLogin(String username, String role, @Session(create = true) CustomSession session) {
         // Simuler un login réussi
-        session.setAttribute("auth", true);           // Variable d'authentification
-        session.setAttribute("user", username);       // Stocker le username
-        session.setAttribute("role", role);           // Variable de rôle
-        
+        session.setAttribute("auth", true); // Variable d'authentification
+        session.setAttribute("user", username); // Stocker le username
+        session.setAttribute("role", role); // Variable de rôle
+
         ModelView mv = new ModelView("/pages/security/login-success.jsp");
-        mv.addObject("username", username);
-        mv.addObject("role", role);
+        mv.addAttribute("username", username);
+        mv.addAttribute("role", role);
         return mv;
     }
 
@@ -60,21 +60,22 @@ public class SecurityTestController {
             session.invalidate();
         }
         ModelView mv = new ModelView("/pages/security/home.jsp");
-        mv.addObject("message", "Vous êtes déconnecté");
+        mv.addAttribute("message", "Vous êtes déconnecté");
         return mv;
     }
 
     // ==================== PAGES PROTÉGÉES (@Authorized) ====================
 
     /**
-     * Page protégée - nécessite authentification (n'importe quel utilisateur connecté)
+     * Page protégée - nécessite authentification (n'importe quel utilisateur
+     * connecté)
      */
     @Authorized
     @GetMapping("/security/profile")
     public ModelView profile(@Session CustomSession session) {
         ModelView mv = new ModelView("/pages/security/profile.jsp");
-        mv.addObject("username", session.getAttribute("user"));
-        mv.addObject("role", session.getAttribute("role"));
+        mv.addAttribute("username", session.getAttribute("user"));
+        mv.addAttribute("role", session.getAttribute("role"));
         return mv;
     }
 
@@ -85,7 +86,7 @@ public class SecurityTestController {
     @GetMapping("/security/dashboard")
     public ModelView dashboard(@Session CustomSession session) {
         ModelView mv = new ModelView("/pages/security/dashboard.jsp");
-        mv.addObject("username", session.getAttribute("user"));
+        mv.addAttribute("username", session.getAttribute("user"));
         return mv;
     }
 
@@ -98,8 +99,8 @@ public class SecurityTestController {
     @GetMapping("/security/admin")
     public ModelView adminPage(@Session CustomSession session) {
         ModelView mv = new ModelView("/pages/security/admin.jsp");
-        mv.addObject("username", session.getAttribute("user"));
-        mv.addObject("message", "Bienvenue dans l'espace administrateur!");
+        mv.addAttribute("username", session.getAttribute("user"));
+        mv.addAttribute("message", "Bienvenue dans l'espace administrateur!");
         return mv;
     }
 
@@ -110,8 +111,8 @@ public class SecurityTestController {
     @GetMapping("/security/chef")
     public ModelView chefPage(@Session CustomSession session) {
         ModelView mv = new ModelView("/pages/security/chef.jsp");
-        mv.addObject("username", session.getAttribute("user"));
-        mv.addObject("message", "Bienvenue chef!");
+        mv.addAttribute("username", session.getAttribute("user"));
+        mv.addAttribute("message", "Bienvenue chef!");
         return mv;
     }
 
@@ -122,7 +123,7 @@ public class SecurityTestController {
     @GetMapping("/security/user-only")
     public ModelView userOnlyPage(@Session CustomSession session) {
         ModelView mv = new ModelView("/pages/security/user-only.jsp");
-        mv.addObject("username", session.getAttribute("user"));
+        mv.addAttribute("username", session.getAttribute("user"));
         return mv;
     }
 }
