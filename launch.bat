@@ -50,6 +50,13 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
+REM Copie des fichiers resources vers WEB-INF/classes
+set RESOURCES_DIR=src\main\resources
+if exist %RESOURCES_DIR% (
+    echo Copie des fichiers resources vers WEB-INF/classes...
+    xcopy %RESOURCES_DIR%\* %CLASSES_DIR% /E /I /Y
+)
+
 REM Copie des fichiers webapp vers le dossier build
 echo Copie des fichiers webapp vers le dossier build...
 xcopy %WEBAPP_DIR%\* %BUILD_DIR% /E /I /Y
