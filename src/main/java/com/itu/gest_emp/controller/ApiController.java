@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.itu.gest_emp.model.Employe;
 import com.itu.gest_emp.model.Departement;
+
+import servlet.ModelView;
 import servlet.annotations.Controller;
 import servlet.annotations.Json;
 import servlet.annotations.mapping.GetMapping;
@@ -15,6 +17,14 @@ import servlet.api.ApiResponse;
 
 @Controller
 public class ApiController {
+
+    @GetMapping("/employes")
+    public ModelView getEmployes() {
+        ModelView mv = new ModelView();
+        mv.setView("pages/api/liste-employe.jsp");
+        return mv;
+    }
+    
 
     // ========== Exemple 1: Retour automatique en JSON ==========
     @Json
